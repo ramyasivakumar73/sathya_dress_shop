@@ -30,6 +30,8 @@ const app = express();
 const allowedOrigins = [
   process.env.USER_CLIENT_URL,
   process.env.ADMIN_CLIENT_URL,
+  "https://sathya-dress-shop.netlify.app",
+  "https://sathya-dress-shop-admin.netlify.app",
 ].filter(Boolean);
 
 if (!isProd) {
@@ -40,7 +42,9 @@ if (!isProd) {
 }
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: allowedOrigins.map((origin) => origin.replace(/\/+$/, "")),
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
@@ -110,4 +114,3 @@ const startServer = async () => {
 };
 
 startServer();
-

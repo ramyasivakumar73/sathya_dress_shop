@@ -32,6 +32,10 @@ Edit `.env` and fill in:
 MONGO_URI=mongodb://127.0.0.1:27017/sathya_dress_shop
 PORT=5000
 JWT_SECRET=your_own_secret_key
+# Render OTP delivery (HTTPS API; verify a sender/domain with Resend)
+RESEND_API_KEY=your_resend_api_key
+EMAIL_FROM="SATHYA DRESS SHOP <onboarding@resend.dev>"
+# Local-only Gmail SMTP fallback
 EMAIL_USER=youremail@gmail.com
 EMAIL_PASS=your_gmail_app_password
 USER_CLIENT_URL=http://localhost:3000
@@ -69,7 +73,7 @@ Runs at **http://localhost:3001** (port is pre-configured via `cross-env` in pac
 1. Start MongoDB, then start the `server`.
 2. Start `client-admin` → Register an admin → Login → Add Products (choose category, price, images, colors, sizes, etc.)
 3. Start `client-user` → Register a user → Login → Browse/search/voice-search products added by the admin. Any change the admin makes reflects immediately on refresh of the User page.
-4. Forgot Password sends a **real 6-digit OTP email** via Nodemailer — make sure your Gmail App Password is correctly configured in `.env`.
+4. Forgot Password sends a **real 6-digit OTP email**. On Render, configure `RESEND_API_KEY` and a sender verified with Resend; local development can use Gmail SMTP with an App Password.
 
 ## Important Behaviors
 - **Duplicate registration:** If a username or email already exists (User or Admin), registration is rejected (409). Old accounts are never deleted. Forgotten passwords are recovered via Forgot Password (OTP).
@@ -80,7 +84,7 @@ Runs at **http://localhost:3001** (port is pre-configured via `cross-env` in pac
 - **Voice Search** uses the built-in browser SpeechRecognition API (Chrome recommended) — no external API key needed.
 
 ## Deploying (going live)
-1. Deploy `server` to a Node.js host such as Render and use MongoDB Atlas. Set `NODE_ENV=production`, a strong `JWT_SECRET`, `ADMIN_REGISTER_CODE`, `MONGO_URI`, Gmail `EMAIL_USER` / `EMAIL_PASS`, Cloudinary `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET`, and `USER_CLIENT_URL` / `ADMIN_CLIENT_URL` in the server host's environment settings.
+1. Deploy `server` to a Node.js host such as Render and use MongoDB Atlas. Set `NODE_ENV=production`, a strong `JWT_SECRET`, `ADMIN_REGISTER_CODE`, `MONGO_URI`, `RESEND_API_KEY`, `EMAIL_FROM`, Cloudinary `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET`, and `USER_CLIENT_URL` / `ADMIN_CLIENT_URL` in the server host's environment settings. Verify the sender/domain with Resend; its onboarding sender can only deliver to your own Resend account email. Set `USER_CLIENT_URL` to exactly `https://sathya-dress-shop.netlify.app` and `ADMIN_CLIENT_URL` to exactly `https://sathya-dress-shop-admin.netlify.app` (no trailing slashes).
 2. Create two Netlify sites from this repository. For the user site, set base directory `client-user`; for the admin site, set base directory `client-admin`. Both use build command `npm run build` and publish directory `dist`.
 3. Set `VITE_API_URL` to the deployed API URL in both Netlify sites. Set `VITE_WHATSAPP_NUMBER` in the user site. Trigger a new deploy after setting the variables.
 4. The `public/_redirects` file in each client enables React Router routes to work on refresh.

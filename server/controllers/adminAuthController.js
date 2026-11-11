@@ -103,7 +103,18 @@ exports.forgotPassword = async (req, res) => {
     const result = await issueOtp(email);
     if (result.error) return res.status(result.status).json({ message: result.error });
 
-    await sendOtpEmail(email, result.otp);
+    try {
+      await sendOtpEmail(email, result.otp);
+    } catch (error) {
+      await Otp.deleteMany({ email });
+      console.error("OTP email delivery failed:", error.code || "unknown");
+      const message = ["ECONNECTION", "ETIMEDOUT", "ESOCKET"].includes(error.code)
+        ? "Could not connect to Gmail SMTP. Configure RESEND_API_KEY on Render to send OTP over HTTPS."
+        : error.code === "ERESEND"
+          ? "Email provider rejected the request. Check RESEND_API_KEY and verify the sender in Resend."
+          : "OTP email delivery failed. Check the server email settings and try again.";
+      return res.status(502).json({ message });
+    }
 
     res.json({ message: "OTP sent to your registered email" });
   } catch (error) {

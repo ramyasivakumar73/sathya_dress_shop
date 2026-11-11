@@ -66,10 +66,15 @@ exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     if (!isStr(email)) return res.status(400).json({ message: "Email is required" });
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
-    if (!emailUser || !emailPass || emailUser === "youremail@gmail.com" || emailPass === "your_gmail_app_password") {
-      return res.status(503).json({ message: "OTP email is not configured. Set EMAIL_USER and EMAIL_PASS in server/.env." });
+    const hasResendConfig = Boolean(process.env.RESEND_API_KEY);
+    const hasGmailConfig = Boolean(
+      process.env.EMAIL_USER &&
+      process.env.EMAIL_PASS &&
+      process.env.EMAIL_USER !== "youremail@gmail.com" &&
+      process.env.EMAIL_PASS !== "your_gmail_app_password"
+    );
+    if (!hasResendConfig && !hasGmailConfig) {
+      return res.status(503).json({ message: "OTP email is not configured. Set RESEND_API_KEY and EMAIL_FROM, or configure Gmail SMTP." });
     }
 
     const user = await User.findOne({ email });
@@ -87,7 +92,9 @@ exports.forgotPassword = async (req, res) => {
       const message = authenticationFailed
         ? "Gmail rejected the credentials. Check EMAIL_USER and use a current Google App Password."
         : connectionFailed
-          ? "Could not connect to Gmail. Check the server internet connection and try again."
+          ? "Could not connect to Gmail SMTP. Configure RESEND_API_KEY on Render to send OTP over HTTPS."
+          : error.code === "ERESEND"
+            ? "Email provider rejected the request. Check RESEND_API_KEY and verify the sender in Resend."
           : "OTP email delivery failed. Check the server email settings and try again.";
       console.error("OTP email delivery failed:", error.code || "unknown");
       return res.status(502).json({ message });
