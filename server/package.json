@@ -1,10 +1,11 @@
+
 {
   "name": "sathya-dress-shop-server",
   "version": "1.0.0",
   "description": "Backend API for Sathya Dress Shop",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_USE_SYSTEM_CA=1 node server.js",
+    "start": "node server.js",
     "dev": "cross-env NODE_USE_SYSTEM_CA=1 nodemon server.js",
     "test": "node --test"
   },
@@ -27,3 +28,4 @@
     "minimatch": "11.0.7"
   }
 }
+
