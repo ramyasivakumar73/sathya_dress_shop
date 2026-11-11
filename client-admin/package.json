@@ -1,0 +1,22 @@
+{
+  "name": "sathya-dress-shop-admin",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.5",
+    "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
+  },
+  "scripts": {
+    "start": "vite --host 0.0.0.0 --port 3001 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3001 --strictPort"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0"
+  }
+}
