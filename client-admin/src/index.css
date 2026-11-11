@@ -1,0 +1,409 @@
+/* ===== SATHYA DRESS SHOP - Global Luxury Theme ===== */
+:root {
+  --maroon: #2450a4;
+  --maroon-dark: #14264d;
+  --gold: #d4af37;
+  --gold-light: #f3e7c3;
+  --cream: #fffdf5;
+  --text-dark: #14264d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+}
+
+h1, h2, h3, .brand-font {
+  font-family: "Playfair Display", serif;
+}
+
+/* ---------- Navbar ---------- */
+.navbar-luxury {
+  background: var(--maroon);
+  box-shadow: 0 4px 20px rgba(20, 38, 77, 0.18);
+}
+.navbar-luxury .navbar-brand {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: var(--gold-light) !important;
+  letter-spacing: 1px;
+}
+.navbar-luxury .nav-link {
+  color: #fffdf5 !important;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+.navbar-luxury .nav-link:hover { color: var(--gold-light) !important; }
+
+/* ---------- Hero ---------- */
+.hero-section {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fffdf5;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(20,38,77,0.78), rgba(36,80,164,0.72), rgba(82,119,187,0.65)),
+    url("https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+}
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  color: var(--gold-light);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  animation: fadeInDown 1s ease;
+}
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  margin-top: 1rem;
+  animation: fadeInUp 1.2s ease;
+}
+.hero-tags span {
+  display: inline-block;
+  margin: 0.3rem 0.6rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--gold-light);
+  border-radius: 30px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.08);
+}
+.btn-luxury {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border: none;
+  color: var(--maroon-dark);
+  font-weight: 700;
+  padding: 0.75rem 2.2rem;
+  border-radius: 40px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(212,175,55,0.3);
+}
+.btn-luxury:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+  color: var(--maroon-dark);
+}
+
+@keyframes fadeInDown { from {opacity:0; transform: translateY(-30px);} to {opacity:1; transform: translateY(0);} }
+@keyframes fadeInUp { from {opacity:0; transform: translateY(30px);} to {opacity:1; transform: translateY(0);} }
+
+/* ---------- Glass Cards ---------- */
+.glass-card {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(20,38,77,0.1);
+}
+
+/* ---------- Coming Soon / Feature Cards ---------- */
+.feature-card {
+  border-radius: 18px;
+  padding: 1.8rem 1.2rem;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #eee7d2;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(20,38,77,0.1); }
+.feature-icon {
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--maroon), var(--gold));
+  color: #fff; font-size: 1.5rem;
+}
+.badge-soon {
+  background: var(--gold-light);
+  color: var(--maroon-dark);
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.75rem;
+}
+
+/* ---------- Product Cards ---------- */
+.product-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee7d2;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  height: 100%;
+}
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(20,38,77,0.14);
+}
+.product-card img {
+  height: 320px;
+  object-fit: cover;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+.product-card:hover img { transform: scale(1.08); }
+.price-old { text-decoration: line-through; color: #999; font-size: 0.85rem; }
+.price-new { color: var(--maroon); font-weight: 700; font-size: 1.15rem; }
+.discount-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--maroon);
+  color: #fff; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+}
+
+/* ---------- Auth Cards ---------- */
+.auth-wrapper {
+  min-height: 90vh;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--cream), #f2f4f8);
+  padding: 2rem 1rem;
+}
+.auth-card {
+  width: 100%; max-width: 430px;
+  border-radius: 22px;
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px rgba(20,38,77,0.1);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.auth-card .form-control {
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  border: 1px solid #d8dce5;
+}
+.auth-card .form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 0.2rem rgba(212,175,55,0.25);
+}
+
+/* ---------- Footer ---------- */
+.footer-luxury {
+  background: var(--maroon-dark);
+  color: var(--cream);
+  padding: 3rem 0 1.5rem;
+}
+.footer-luxury a { color: var(--gold-light); text-decoration: none; }
+.footer-luxury a:hover { color: #fff; }
+
+/* ---------- Misc ---------- */
+.section-title {
+  font-weight: 700;
+  color: var(--maroon-dark);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2.5rem;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px; height: 3px;
+  background: var(--gold);
+  margin: 0.6rem auto 0;
+  border-radius: 3px;
+}
+.spinner-luxury {
+  width: 3rem; height: 3rem;
+  border: 4px solid #e5e7eb;
+  border-top-color: var(--maroon);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.mic-btn {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--maroon), var(--gold));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s ease;
+}
+.mic-btn.listening { animation: pulse 1s infinite; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(36,80,164,0.4); }
+  70% { box-shadow: 0 0 0 14px rgba(36,80,164,0); }
+  100% { box-shadow: 0 0 0 0 rgba(36,80,164,0); }
+}
+
+@media (max-width: 768px) {
+  .product-card img { height: 240px; }
+  .auth-card { padding: 2rem 1.4rem; }
+}
+
+/* ---------- Admin Sidebar ---------- */
+.admin-layout {
+  min-height: 100vh;
+}
+.admin-sidebar-wrapper {
+  width: 240px;
+  flex: 0 0 240px;
+}
+.admin-content {
+  min-width: 0;
+  background: var(--cream);
+  min-height: 100vh;
+}
+.admin-sidebar {
+  background: linear-gradient(180deg, var(--maroon), var(--maroon-dark));
+  min-height: 100vh;
+  color: var(--cream);
+}
+.admin-sidebar .nav-link {
+  color: var(--cream);
+  border-radius: 10px;
+  margin-bottom: 0.4rem;
+  transition: all 0.25s ease;
+}
+.admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active {
+  background: rgba(255,255,255,0.16);
+  color: var(--gold-light);
+}
+.stat-card {
+  border-radius: 18px;
+  padding: 1.6rem;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-left: 5px solid var(--gold);
+}
+.add-product-fab {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--maroon), var(--gold));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  border: none;
+  box-shadow: 0 10px 25px rgba(20,38,77,0.3);
+  transition: transform 0.25s ease;
+}
+.add-product-fab:hover { transform: scale(1.08) rotate(90deg); }
+.color-swatch {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  display: inline-block;
+}
+.color-swatch.selected { border: 3px solid var(--maroon); }
+.color-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid #d8dce5;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.875rem;
+}
+.color-label-swatch {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #adb5bd;
+  border-radius: 50%;
+}
+.color-label-remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+@media (max-width: 991.98px) {
+  .admin-content {
+    padding: 1.25rem !important;
+  }
+  .admin-content > div > h2 {
+    font-size: 1.6rem;
+  }
+  .glass-card.p-4 {
+    padding: 1.25rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar-wrapper {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  .admin-sidebar {
+    min-height: auto;
+    padding: 0.85rem !important;
+  }
+  .admin-sidebar h4 {
+    margin-bottom: 0 !important;
+  }
+  .admin-sidebar p {
+    margin-bottom: 0.65rem !important;
+  }
+  .admin-sidebar nav {
+    flex-direction: row !important;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
+  }
+  .admin-sidebar .nav-link {
+    margin-bottom: 0;
+    padding: 0.45rem 0.65rem !important;
+    font-size: 0.9rem;
+  }
+  .admin-sidebar .nav-link i {
+    margin-right: 0.25rem !important;
+  }
+  .admin-content {
+    min-height: auto;
+    padding: 1rem !important;
+  }
+  .admin-content .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-content .modal-dialog {
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .auth-wrapper {
+    min-height: calc(100vh - 1rem);
+    padding: 1rem 0.75rem;
+  }
+  .auth-card {
+    padding: 1.5rem 1rem;
+  }
+  .admin-content {
+    padding: 0.75rem !important;
+  }
+  .admin-content .glass-card.p-4,
+  .admin-content form.glass-card {
+    padding: 1rem !important;
+  }
+  .admin-content .row.g-3 {
+    --bs-gutter-x: 0.75rem;
+    --bs-gutter-y: 0.75rem;
+  }
+  .admin-sidebar .nav-link {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.5rem !important;
+  }
+}
