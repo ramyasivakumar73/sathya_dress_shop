@@ -76,16 +76,15 @@ Runs at **http://localhost:3001** (port is pre-configured via `cross-env` in pac
 - **Admin registration is protected:** the very first admin registers freely; every later admin must enter `ADMIN_REGISTER_CODE` (from `server/.env`) on the Register page. Leave it unset to close admin registration completely.
 - **OTP safety:** each OTP allows 5 wrong attempts, then it is destroyed; a new OTP can be requested once per minute.
 - **No cart, no payment, no delivery, no checkout** — this is a catalog/viewing site only. Those features are shown as "Coming Soon" cards on the Home page.
-- **WhatsApp button** on Product Details opens a pre-filled chat with `REACT_APP_WHATSAPP_NUMBER` (country code + number, digits only). The button is hidden if the number is not set.
+- **WhatsApp button** on Product Details opens a pre-filled chat with `VITE_WHATSAPP_NUMBER` (country code + number, digits only). The button is hidden if the number is not set.
 - **Voice Search** uses the built-in browser SpeechRecognition API (Chrome recommended) — no external API key needed.
 
 ## Deploying (going live)
-1. **Server** `.env`: set `NODE_ENV=production`, a strong `JWT_SECRET`, `ADMIN_REGISTER_CODE`, your MongoDB Atlas `MONGO_URI`, and `USER_CLIENT_URL` / `ADMIN_CLIENT_URL` to your real website addresses (CORS).
-2. **client-user** hosting env: `VITE_API_URL=https://your-api-domain`, `VITE_WHATSAPP_NUMBER=91XXXXXXXXXX`.
-3. **client-admin** hosting env: `VITE_API_URL=https://your-api-domain`.
-4. Run `npm run build` in each client **after** setting its hosting env (Vite bakes these values in at build time) and publish the `dist` folder.
-5. Configure `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` on the server before production. New product images are uploaded to Cloudinary and their secure URLs are saved in MongoDB. Local development continues to use `server/uploads` when Cloudinary is not configured. Production image uploads fail with a clear error if Cloudinary is not configured, rather than saving files to ephemeral disk.
-6. Set `VITE_API_URL` in each frontend's hosting environment to the deployed API URL. For the user site, also set `VITE_WHATSAPP_NUMBER`. Rebuild after setting these values.
+1. Deploy `server` to a Node.js host such as Render and use MongoDB Atlas. Set `NODE_ENV=production`, a strong `JWT_SECRET`, `ADMIN_REGISTER_CODE`, `MONGO_URI`, Gmail `EMAIL_USER` / `EMAIL_PASS`, Cloudinary `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET`, and `USER_CLIENT_URL` / `ADMIN_CLIENT_URL` in the server host's environment settings.
+2. Create two Netlify sites from this repository. For the user site, set base directory `client-user`; for the admin site, set base directory `client-admin`. Both use build command `npm run build` and publish directory `dist`.
+3. Set `VITE_API_URL` to the deployed API URL in both Netlify sites. Set `VITE_WHATSAPP_NUMBER` in the user site. Trigger a new deploy after setting the variables.
+4. The `public/_redirects` file in each client enables React Router routes to work on refresh.
+5. New product images upload to Cloudinary and their secure URLs are stored in MongoDB. Local development uses `server/uploads` when Cloudinary is not configured; production uploads return an error until Cloudinary is configured.
 
 ## Database Collections
 - `users` — registered customers
